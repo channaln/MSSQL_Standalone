@@ -1,5 +1,5 @@
 ---
-- hosts: wall
+- hosts: all
   gather_facts: false
   collections:
     - ansible.windows
