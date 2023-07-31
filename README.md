@@ -1,49 +1,41 @@
-ad_user_management
+Install MSSQL Standalone with SSMS
 =========
 
-This role is will create, delete users and update password in Winodws Active Directory
+This role will Check the necessary file path and exe is available and install prerequisites  
 
 Requirements
 ------------
+MSSQL and SSMS need to be downloaded because this playbook is to conduct offline installation altho this can develop as an online installation environment easily  
 
-Following collection should be availble
-
+The following collection should be available
 collections:
 - name: ansible.windows
 - name: community.windows
 
 Role Variables
 --------------
-
-win_domain_administrator 
-win_domain_password
-win_domain_server: 
-
-You can create multiple users using ansible list as below. veriable name shoudld be [domain_users_list]
-domain_users_list:
-  - name: 
-    firstname: 
-    surname: 
-    password: 
-    group: 
-
+installation_path: 'C:\SQL_2016'
+sql_instance_name: "{{ ansible_hostname }}"
+download_path: 'C:\Users\Administrator\Downloads\SQLServer2016SP2-FullSlipstream-x64-ENU\'
+playbook_dir: '/etc/ansible/roles/mssql_install'
 
 Tags 
 -------------
+There are no tags designed 
 
-create_ad_user # create one or more users
-delete_ad_user # delete one or more users 
-update_ad_user # change password of one or more users
-
-tags:
-  - create_ad_user 
-  - delete_ad_user
-  - update_ad_user
 
 Example Playbook
 ----------------
+---
+- hosts: all
+  gather_facts: false
+  collections:
+    - ansible.windows
+    - community.windows
+  roles: 
+     - "{{ playbook_dir }}"
 
-ansible-playbook main.yml -t [tag_name] 
+ansible-playbook main.yml 
 
 License
 -------
