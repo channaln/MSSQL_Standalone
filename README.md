@@ -15,8 +15,11 @@ collections:
 Role Variables
 --------------
 installation_path: 'C:\SQL_2016'
+
 sql_instance_name: "{{ ansible_hostname }}"
+
 download_path: 'C:\Users\Administrator\Downloads\SQLServer2016SP2-FullSlipstream-x64-ENU\'
+
 playbook_dir: '/etc/ansible/roles/mssql_install'
 
 Tags 
