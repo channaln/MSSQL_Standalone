@@ -1,0 +1,8 @@
+---
+- hosts: wall
+  gather_facts: false
+  collections:
+    - ansible.windows
+    - community.windows
+  roles: 
+     - "{{ playbook_dir }}"

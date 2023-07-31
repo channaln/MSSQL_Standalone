@@ -1,0 +1,16 @@
+- block:
+    - name: Query SSMS installation status from Registry
+      win_shell: Get-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*" | Where-Object { $_.DisplayName -like "*SQL Server Management Studio*" }
+      register: ssms_installed
+  rescue:
+    - name: Obtain information about a registry key using short form
+      ansible.windows.win_reg_stat:
+        path: HKLM:\SOFTWARE\Microsoft\MSSQLServer\MSSQLServer\CurrentVersion\
+        name: CurrentVersion
+      register: common_path
+ 
+
+  always:
+    - name: Display Status
+      debug:
+        msg: "MSSQL & SSMS already Installed with MSSQL V. '{{ common_path.value }}'. Check for syntax errors."
