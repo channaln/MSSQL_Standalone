@@ -3,11 +3,11 @@
     #   win_shell: Get-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*" | Where-Object { $_.DisplayName -like "*SQL Server Management Studio*" }
     #   register: ssms_installed
 
-    # - name: Obtain information about a registry key using short form
-    #   ansible.windows.win_reg_stat:
-    #     path: HKLM:\SOFTWARE\Microsoft\MSSQLServer\MSSQLServer\CurrentVersion\
-    #     name: CurrentVersion
-    #   register: common_path
+    - name: Obtain information about a registry key using short form
+      ansible.windows.win_reg_stat:
+        path: HKLM:\SOFTWARE\Microsoft\MSSQLServer\MSSQLServer\CurrentVersion\
+        name: CurrentVersion
+      register: common_path
 
   rescue:
     # - name: Installs SSMS
@@ -34,8 +34,8 @@
       win_reboot:
         reboot: yes
 
-  # always:
-  #   - name: Display Status
-  #     debug:
-  #       msg: "MSSQL & SSMS already Installed with MSSQL V. '{{ common_path.value }}'"
+  always:
+    - name: Display Status
+      debug:
+        msg: "MSSQL & SSMS already Installed with MSSQL V. '{{ common_path.value }}'"
 
