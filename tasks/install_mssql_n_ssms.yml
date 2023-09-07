@@ -32,7 +32,7 @@
 
 - name: Reboot server
   win_reboot:
-    reboot: 
+    
 
   # always:
   #   - name: Display Status
