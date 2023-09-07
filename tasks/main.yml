@@ -5,12 +5,12 @@
   
 - ansible.builtin.include_tasks: create_configuration_file.yml
  
-- ansible.builtin.include_tasks: install_dotnet.yml
+# - ansible.builtin.include_tasks: install_dotnet.yml
 
 - ansible.builtin.include_tasks: validate_sql_setup_exists.yml 
   
-- ansible.builtin.include_tasks: validate_ssms_setup_exists.yml
+# - ansible.builtin.include_tasks: validate_ssms_setup_exists.yml
  
-- ansible.builtin.include_tasks: install_mssql_n_ssms.yml
+# - ansible.builtin.include_tasks: install_mssql_n_ssms.yml
  
 
