@@ -1,4 +1,4 @@
-# - block:
+  # - block:
 #     # - name: Query SSMS installation status from Registry
 #     #   win_shell: Get-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*" | Where-Object { $_.DisplayName -like "*SQL Server Management Studio*" }
 #     #   register: ssms_installed
@@ -28,7 +28,7 @@
     path:  '{{ download_path }}\SETUP.exe'
     arguments:  '/ConfigurationFile={{ installation_path }}\sql_conf.ini /IAcceptSQLServerLicenseTerms /Q'
     product_id: '{AC6F2802-4CC4-40B2-B333-395A4291EF29}'  # Corrected indentation
-register: mssql_installation
+  register: mssql_installation
 
 - name: Reboot server
   win_reboot:
