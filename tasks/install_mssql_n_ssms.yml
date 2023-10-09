@@ -1,41 +1,41 @@
-  # - block:
-#     # - name: Query SSMS installation status from Registry
-#     #   win_shell: Get-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*" | Where-Object { $_.DisplayName -like "*SQL Server Management Studio*" }
-#     #   register: ssms_installed
+  - block:
+    # - name: Query SSMS installation status from Registry
+    #   win_shell: Get-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*" | Where-Object { $_.DisplayName -like "*SQL Server Management Studio*" }
+    #   register: ssms_installed
 
-#     - name: Obtain information about a registry key using short form
-#       ansible.windows.win_reg_stat:
-#         path: HKLM:\SOFTWARE\Microsoft\MSSQLServer\MSSQLServer\CurrentVersion\
-#         name: CurrentVersion
-#       register: common_path
+    - name: Obtain information about a registry key using short form
+      ansible.windows.win_reg_stat:
+        path: HKLM:\SOFTWARE\Microsoft\MSSQLServer\MSSQLServer\CurrentVersion\
+        name: CurrentVersion
+      register: common_path
 
-#   rescue:
-#     # - name: Installs SSMS
-#     #   win_package:
-#     #     path: "{{ download_path }}/SSMS-Setup-ENU.exe"
-#     #     arguments: '/install /quiet'
-#     #     product_id: "{aca4e29f-6925-4d50-a06b-5576c6ea629f}"
-#     #   register: ssms_installation
+  rescue:
+    # - name: Installs SSMS
+    #   win_package:
+    #     path: "{{ download_path }}/SSMS-Setup-ENU.exe"
+    #     arguments: '/install /quiet'
+    #     product_id: "{aca4e29f-6925-4d50-a06b-5576c6ea629f}"
+    #   register: ssms_installation
 
-#     # - name: Add to path
-#     #   win_path:
-#     #     elements:
-#     #       - 'C:\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE'
-#     #     state: present
+    # - name: Add to path
+    #   win_path:
+    #     elements:
+    #       - 'C:\Program Files (x86)\Microsoft SQL Server Management Studio 18\Common7\IDE'
+    #     state: present
 
-- name: install mssql
-  win_package:
-    path:  '{{ download_path }}\SETUP.exe'
-    arguments:  '/ConfigurationFile={{ installation_path }}\sql_conf.ini /IAcceptSQLServerLicenseTerms /Q'
-    product_id: '{AC6F2802-4CC4-40B2-B333-395A4291EF29}'  # Corrected indentation
-  register: mssql_installation
+    - name: install mssql
+      win_package:
+        path:  '{{ download_path }}\SETUP.exe'
+        arguments:  '/ConfigurationFile={{ installation_path }}\sql_conf.ini /IAcceptSQLServerLicenseTerms /Q'
+        product_id: '{AC6F2802-4CC4-40B2-B333-395A4291EF29}'  # Corrected indentation
+      register: mssql_installation
 
-- name: Reboot server
-  win_reboot:
-    
+    - name: Reboot server
+      win_reboot:
+        
 
-  # always:
-  #   - name: Display Status
-  #     debug:
-  #       msg: "MSSQL & SSMS already Installed with MSSQL V. '{{ common_path.value }}'"
+  always:
+    - name: Display Status
+      debug:
+        msg: "MSSQL & SSMS already Installed with MSSQL V. '{{ common_path.value }}'"
 
